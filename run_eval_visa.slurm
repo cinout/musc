@@ -11,7 +11,7 @@
 
 #SBATCH --job-name="e_visa"
 #SBATCH --account=punim1623
-#SBATCH --time=0-05:00:00
+#SBATCH --time=0-02:00:00
 
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
@@ -48,7 +48,8 @@ python examples/musc_main.py \
   --batch_size 4 \
   --output_dir ./output \
   --vis True \
-  --save_excel True
+  --save_excel True \
+  --online \
 
 ##Log this job's resource usage stats###
 my-job-stats -a -n -s

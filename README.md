@@ -2,30 +2,31 @@
 
 **This is an official PyTorch implementation for "MuSc : Zero-Shot Industrial Anomaly Classification and Segmentation with Mutual Scoring of the Unlabeled Images" (MuSc)**
 
-Authors:  [Xurui Li](https://github.com/xrli-U)<sup>1*</sup> | [Ziming Huang](https://github.com/ZimingHuang1)<sup>1*</sup> | [Feng Xue](https://xuefeng-cvr.github.io/)<sup>3</sup> | [Yu Zhou](https://github.com/zhouyu-hust)<sup>1,2</sup>
+Authors: [Xurui Li](https://github.com/xrli-U)<sup>1*</sup> | [Ziming Huang](https://github.com/ZimingHuang1)<sup>1*</sup> | [Feng Xue](https://xuefeng-cvr.github.io/)<sup>3</sup> | [Yu Zhou](https://github.com/zhouyu-hust)<sup>1,2</sup>
 
 Institutions: <sup>1</sup>Huazhong University of Science and Technology | <sup>2</sup>Wuhan JingCe Electronic Group Co.,LTD | <sup>3</sup>University of Trento
 
-### 🧐  [Arxiv](https://arxiv.org/pdf/2401.16753.pdf) | [OpenReview](https://openreview.net/forum?id=AHgc5SMdtd)
+### 🧐 [Arxiv](https://arxiv.org/pdf/2401.16753.pdf) | [OpenReview](https://openreview.net/forum?id=AHgc5SMdtd)
 
 ### 📖 Chinese [README](./README_cn.md)
 
 ## <a href='#all_catelogue'>**Go to Catalogue**</a>
 
-## 🙈TODO list:
 - ⬜️ Using some strategies to reduce the inference time per image from 955.3ms to **249.8ms**.
 - ⬜️ Compatibility with more industrial datasets.
 - ⬜️ Compatibility with more visual backbones, e.g. [Vision Mamba](https://github.com/hustvl/Vim).
 
-
 ## 📣Updates:
-***04/11/2024***
+
+**_04/11/2024_**
+
 1. The comparisons with the zero/few-shot methods in CVPR 2024 have been added to <a href='#compare_sota'>Compare with SOTA k-shot Methods.</a>
 2. Fixed some bugs in `models/backbone/_backbones.py`.
 
-***03/22/2024***
+**_03/22/2024_**
+
 1. The supported codes for [BTAD](https://ieeexplore.ieee.org/abstract/document/9576231) dataset are provided.
-2. Some codes are modified to support larger *batch_size*.
+2. Some codes are modified to support larger _batch_size_.
 3. Some codes are optimized to obtain faster speeds.
 4. <a href='#results_backbones'>Results of different backbones</a> in MVTec AD, VisA and BTAD datasets are provided.
 5. <a href='#results_datasets'>The detailed results of different datasets</a> are provided.
@@ -34,7 +35,7 @@ Institutions: <sup>1</sup>Huazhong University of Science and Technology | <sup>2
 8. We summarize the <a href='#FAQ'> frequently asked questions </a> from users when using MuSc, and give the answers.
 9. We add [README](./README_cn.md) in Chinese.
 
-***02/01/2024***
+**_02/01/2024_**
 
 Initial commits:
 
@@ -43,86 +44,87 @@ Initial commits:
 
 <span id='compare_sota'/>
 
-## 🎖️Compare with SOTA *k*-shot methods <a href='#all_catelogue'>[Go to Catalogue]</a>
+## 🎖️Compare with SOTA _k_-shot methods <a href='#all_catelogue'>[Go to Catalogue]</a>
+
 We will **continuously update** the following table to compare our MuSc with the newest zero-shot and few-shot methods.
 "-" indicates that the authors did not measure this metric in their paper.
 
 ### MVTec AD
 
-|                                          |                    |         | Classification |            |        | Segmentation |             |         |          |
-| :--------------------------------------: | :----------------: | :-----: | :------------: | :--------: | :----: | :----------: | :---------: | :-----: | :------: |
-|                 Methods                  |       Venue        | Setting |   AUROC-cls    | F1-max-cls | AP-cls |  AUROC-segm  | F1-max-segm | AP-segm | PRO-segm |
-|                MuSc(ours)                |     ICLR 2024      | 0-shot  |      97.8      |    97.5    |  99.1  |     97.3     |    62.6     |  62.7   |   93.8   |
-| [RegAD](https://link.springer.com/chapter/10.1007/978-3-031-20053-3_18) |     ECCV 2022      | 4-shot  |      89.1      |    92.4    |  94.9  |     96.2     |    51.7     |  48.3   |   88.0   |
-| [GraphCore](https://openreview.net/forum?id=xzmqxHdZAwO) |     ICLR 2023      | 4-shot  |      92.9      |     -      |   -    |     97.4     |      -      |    -    |    -     |
-| [WinCLIP](https://openaccess.thecvf.com/content/CVPR2023/papers/Jeong_WinCLIP_Zero-Few-Shot_Anomaly_Classification_and_Segmentation_CVPR_2023_paper.pdf) |     CVPR 2023      | 0-shot  |      91.8      |    92.9    |  96.5  |     85.1     |    31.7     |    -    |   64.6   |
-| [WinCLIP](https://openaccess.thecvf.com/content/CVPR2023/papers/Jeong_WinCLIP_Zero-Few-Shot_Anomaly_Classification_and_Segmentation_CVPR_2023_paper.pdf) |     CVPR 2023      | 4-shot  |      95.2      |    94.7    |  97.3  |     96.2     |    51.7     |    -    |   88.0   |
-| [APRIL-GAN](https://arxiv.org/pdf/2305.17382.pdf) | CVPR Workshop 2023 | 0-shot  |      86.1      |    90.4    |  93.5  |     87.6     |    43.3     |  40.8   |   44.0   |
-| [APRIL-GAN](https://arxiv.org/pdf/2305.17382.pdf) | CVPR Workshop 2023 | 4-shot  |      92.8      |    92.8    |  96.3  |     95.9     |    56.9     |  54.5   |   91.8   |
+|                                                                                                                                                                             |                    |         | Classification |            |        | Segmentation |             |         |          |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------: | :-----: | :------------: | :--------: | :----: | :----------: | :---------: | :-----: | :------: |
+|                                                                                   Methods                                                                                   |       Venue        | Setting |   AUROC-cls    | F1-max-cls | AP-cls |  AUROC-segm  | F1-max-segm | AP-segm | PRO-segm |
+|                                                                                 MuSc(ours)                                                                                  |     ICLR 2024      | 0-shot  |      97.8      |    97.5    |  99.1  |     97.3     |    62.6     |  62.7   |   93.8   |
+|                                                   [RegAD](https://link.springer.com/chapter/10.1007/978-3-031-20053-3_18)                                                   |     ECCV 2022      | 4-shot  |      89.1      |    92.4    |  94.9  |     96.2     |    51.7     |  48.3   |   88.0   |
+|                                                          [GraphCore](https://openreview.net/forum?id=xzmqxHdZAwO)                                                           |     ICLR 2023      | 4-shot  |      92.9      |     -      |   -    |     97.4     |      -      |    -    |    -     |
+|          [WinCLIP](https://openaccess.thecvf.com/content/CVPR2023/papers/Jeong_WinCLIP_Zero-Few-Shot_Anomaly_Classification_and_Segmentation_CVPR_2023_paper.pdf)           |     CVPR 2023      | 0-shot  |      91.8      |    92.9    |  96.5  |     85.1     |    31.7     |    -    |   64.6   |
+|          [WinCLIP](https://openaccess.thecvf.com/content/CVPR2023/papers/Jeong_WinCLIP_Zero-Few-Shot_Anomaly_Classification_and_Segmentation_CVPR_2023_paper.pdf)           |     CVPR 2023      | 4-shot  |      95.2      |    94.7    |  97.3  |     96.2     |    51.7     |    -    |   88.0   |
+|                                                              [APRIL-GAN](https://arxiv.org/pdf/2305.17382.pdf)                                                              | CVPR Workshop 2023 | 0-shot  |      86.1      |    90.4    |  93.5  |     87.6     |    43.3     |  40.8   |   44.0   |
+|                                                              [APRIL-GAN](https://arxiv.org/pdf/2305.17382.pdf)                                                              | CVPR Workshop 2023 | 4-shot  |      92.8      |    92.8    |  96.3  |     95.9     |    56.9     |  54.5   |   91.8   |
 | [FastRecon](https://openaccess.thecvf.com/content/ICCV2023/papers/Fang_FastRecon_Few-shot_Industrial_Anomaly_Detection_via_Fast_Feature_Reconstruction_ICCV_2023_paper.pdf) |     ICCV 2023      | 4-shot  |      94.2      |     -      |   -    |     97.0     |      -      |    -    |    -     |
-| [ACR](https://proceedings.neurips.cc/paper_files/paper/2023/file/8078e8c3055303a884ffae2d3ea00338-Paper-Conference.pdf) |    NeurIPS 2023    | 0-shot  |      85.8      |    91.3    |  92.9  |     92.5     |    44.2     |  38.9   |   72.7   |
-| [RegAD+Adversarial Loss](https://papers.bmvc2023.org/0202.pdf) |     BMVC 2023      | 8-shot  |      91.9      |     -      |   -    |     96.9     |      -      |    -    |    -     |
-| [PACKD](https://papers.bmvc2023.org/0259.pdf) |     BMVC 2023      | 8-shot  |      95.3      |     -      |   -    |     97.3     |      -      |    -    |    -     |
-| [PromptAD](https://openaccess.thecvf.com/content/WACV2024/papers/Li_PromptAD_Zero-Shot_Anomaly_Detection_Using_Text_Prompts_WACV_2024_paper.pdf) |     WACV 2024      | 0-shot  |      90.8      |     -      |   -    |     92.1     |    36.2     |    -    |   72.8   |
-| [AnomalyCLIP](https://openreview.net/forum?id=buC4E91xZE) |     ICLR 2024      | 0-shot  |      91.5      |     -      |  96.2  |     91.1     |      -      |    -    |   81.4   |
-| [InCTRL](https://arxiv.org/pdf/2403.06495.pdf) |     CVPR 2024      | 8-shot  |      95.3      |     -      |   -    |      -       |      -      |    -    |    -     |
-| [MVFA-AD](https://arxiv.org/pdf/2403.12570.pdf) |     CVPR 2024      | 4-shot  |      96.2      |     -      |   -    |     96.3     |      -      |    -    |    -     |
-| [PromptAD](https://arxiv.org/pdf/2404.05231.pdf) |     CVPR 2024      | 4-shot  |      96.6      |     -      |   -    |     96.5     |      -      |    -    |    -     |
+|                           [ACR](https://proceedings.neurips.cc/paper_files/paper/2023/file/8078e8c3055303a884ffae2d3ea00338-Paper-Conference.pdf)                           |    NeurIPS 2023    | 0-shot  |      85.8      |    91.3    |  92.9  |     92.5     |    44.2     |  38.9   |   72.7   |
+|                                                       [RegAD+Adversarial Loss](https://papers.bmvc2023.org/0202.pdf)                                                        |     BMVC 2023      | 8-shot  |      91.9      |     -      |   -    |     96.9     |      -      |    -    |    -     |
+|                                                                [PACKD](https://papers.bmvc2023.org/0259.pdf)                                                                |     BMVC 2023      | 8-shot  |      95.3      |     -      |   -    |     97.3     |      -      |    -    |    -     |
+|              [PromptAD](https://openaccess.thecvf.com/content/WACV2024/papers/Li_PromptAD_Zero-Shot_Anomaly_Detection_Using_Text_Prompts_WACV_2024_paper.pdf)               |     WACV 2024      | 0-shot  |      90.8      |     -      |   -    |     92.1     |    36.2     |    -    |   72.8   |
+|                                                          [AnomalyCLIP](https://openreview.net/forum?id=buC4E91xZE)                                                          |     ICLR 2024      | 0-shot  |      91.5      |     -      |  96.2  |     91.1     |      -      |    -    |   81.4   |
+|                                                               [InCTRL](https://arxiv.org/pdf/2403.06495.pdf)                                                                |     CVPR 2024      | 8-shot  |      95.3      |     -      |   -    |      -       |      -      |    -    |    -     |
+|                                                               [MVFA-AD](https://arxiv.org/pdf/2403.12570.pdf)                                                               |     CVPR 2024      | 4-shot  |      96.2      |     -      |   -    |     96.3     |      -      |    -    |    -     |
+|                                                              [PromptAD](https://arxiv.org/pdf/2404.05231.pdf)                                                               |     CVPR 2024      | 4-shot  |      96.6      |     -      |   -    |     96.5     |      -      |    -    |    -     |
 
 ### VisA
 
-|                                          |                    |         | Classification |            |        | Segmentation |             |         |          |
-| :--------------------------------------: | :----------------: | :-----: | :------------: | :--------: | :----: | :----------: | :---------: | :-----: | :------: |
-|                 Methods                  |       Venue        | Setting |   AUROC-cls    | F1-max-cls | AP-cls |  AUROC-segm  | F1-max-segm | AP-segm | PRO-segm |
-|                MuSc(ours)                |     ICLR 2024      | 0-shot  |      92.8      |    89.5    |  93.5  |     98.8     |    48.8     |  45.1   |   92.7   |
+|                                                                                                                                                          |                    |         | Classification |            |        | Segmentation |             |         |          |
+| :------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------: | :-----: | :------------: | :--------: | :----: | :----------: | :---------: | :-----: | :------: |
+|                                                                         Methods                                                                          |       Venue        | Setting |   AUROC-cls    | F1-max-cls | AP-cls |  AUROC-segm  | F1-max-segm | AP-segm | PRO-segm |
+|                                                                        MuSc(ours)                                                                        |     ICLR 2024      | 0-shot  |      92.8      |    89.5    |  93.5  |     98.8     |    48.8     |  45.1   |   92.7   |
 | [WinCLIP](https://openaccess.thecvf.com/content/CVPR2023/papers/Jeong_WinCLIP_Zero-Few-Shot_Anomaly_Classification_and_Segmentation_CVPR_2023_paper.pdf) |     CVPR 2023      | 0-shot  |      78.1      |    79.0    |  81.2  |     79.6     |    14.8     |    -    |   56.8   |
 | [WinCLIP](https://openaccess.thecvf.com/content/CVPR2023/papers/Jeong_WinCLIP_Zero-Few-Shot_Anomaly_Classification_and_Segmentation_CVPR_2023_paper.pdf) |     CVPR 2023      | 4-shot  |      87.3      |    84.2    |  88.8  |     97.2     |    47.0     |    -    |   87.6   |
-| [APRIL-GAN](https://arxiv.org/pdf/2305.17382.pdf) | CVPR Workshop 2023 | 0-shot  |      78.0      |    78.7    |  81.4  |     94.2     |    32.3     |  25.7   |   86.8   |
-| [APRIL-GAN](https://arxiv.org/pdf/2305.17382.pdf) | CVPR Workshop 2023 | 4-shot  |      92.6      |    88.4    |  94.5  |     96.2     |    40.0     |  32.2   |   90.2   |
-| [PACKD](https://papers.bmvc2023.org/0259.pdf) |     BMVC 2023      | 8-shot  |      87.5      |     -      |   -    |     97.9     |      -      |    -    |    -     |
-| [AnomalyCLIP](https://openreview.net/forum?id=buC4E91xZE) |     ICLR 2024      | 0-shot  |      82.1      |     -      |  85.4  |     95.5     |      -      |    -    |   87.0   |
-| [InCTRL](https://arxiv.org/pdf/2403.06495.pdf) |     CVPR 2024      | 8-shot  |      88.7      |     -      |   -    |      -       |      -      |    -    |    -     |
-| [PromptAD](https://arxiv.org/pdf/2404.05231.pdf) |     CVPR 2024      | 4-shot  |      89.1      |     -      |   -    |     97.4     |      -      |    -    |    -     |
+|                                                    [APRIL-GAN](https://arxiv.org/pdf/2305.17382.pdf)                                                     | CVPR Workshop 2023 | 0-shot  |      78.0      |    78.7    |  81.4  |     94.2     |    32.3     |  25.7   |   86.8   |
+|                                                    [APRIL-GAN](https://arxiv.org/pdf/2305.17382.pdf)                                                     | CVPR Workshop 2023 | 4-shot  |      92.6      |    88.4    |  94.5  |     96.2     |    40.0     |  32.2   |   90.2   |
+|                                                      [PACKD](https://papers.bmvc2023.org/0259.pdf)                                                       |     BMVC 2023      | 8-shot  |      87.5      |     -      |   -    |     97.9     |      -      |    -    |    -     |
+|                                                [AnomalyCLIP](https://openreview.net/forum?id=buC4E91xZE)                                                 |     ICLR 2024      | 0-shot  |      82.1      |     -      |  85.4  |     95.5     |      -      |    -    |   87.0   |
+|                                                      [InCTRL](https://arxiv.org/pdf/2403.06495.pdf)                                                      |     CVPR 2024      | 8-shot  |      88.7      |     -      |   -    |      -       |      -      |    -    |    -     |
+|                                                     [PromptAD](https://arxiv.org/pdf/2404.05231.pdf)                                                     |     CVPR 2024      | 4-shot  |      89.1      |     -      |   -    |     97.4     |      -      |    -    |    -     |
 
 <span id='all_catelogue'/>
 
 ## 📖Catalogue
 
-* <a href='#abstract'>1. Abstract</a>
-* <a href='#setup'>2. Environment setup</a>
-* <a href='#datasets'>3. Datasets download</a>
-  * <a href='#datatets_mvtec_ad'>MVTec AD</a>
-  * <a href='#datatets_visa'>VisA</a>
-  * <a href='#datatets_btad'>BTAD</a>
-* <a href='#run_musc'>4. Run MuSc</a>
-* <a href='#rscin'>5. Run RsCIN</a>
-* <a href='#results_datasets'>6. Results of different datasets</a>
-* <a href='#results_backbones'>7. Results of different backbones</a>
-* <a href='#inference_time'>8. Inference time</a>
-* <a href='#FAQ'>9. Frequently Asked Questions</a>
-* <a href='#citation'>10. Citation</a>
-* <a href='#thanks'>11. Thanks</a>
-* <a href='#license'>12. License</a>
+- <a href='#abstract'>1. Abstract</a>
+- <a href='#setup'>2. Environment setup</a>
+- <a href='#datasets'>3. Datasets download</a>
+  - <a href='#datatets_mvtec_ad'>MVTec AD</a>
+  - <a href='#datatets_visa'>VisA</a>
+  - <a href='#datatets_btad'>BTAD</a>
+- <a href='#run_musc'>4. Run MuSc</a>
+- <a href='#rscin'>5. Run RsCIN</a>
+- <a href='#results_datasets'>6. Results of different datasets</a>
+- <a href='#results_backbones'>7. Results of different backbones</a>
+- <a href='#inference_time'>8. Inference time</a>
+- <a href='#FAQ'>9. Frequently Asked Questions</a>
+- <a href='#citation'>10. Citation</a>
+- <a href='#thanks'>11. Thanks</a>
+- <a href='#license'>12. License</a>
 
 <span id='abstract'/>
 
 ## 👇Abstract: <a href='#all_catelogue'>[Back to Catalogue]</a>
 
-This paper studies zero-shot anomaly classification (AC) and segmentation (AS) in industrial vision. We reveal that the abundant normal and abnormal cues implicit in unlabeled test images can be exploited for anomaly determination, which is ignored by prior methods. Our key observation is that for the industrial product images, the normal image patches could find a relatively large number of similar patches in other unlabeled images, while the abnormal ones only have a few similar patches. 
+This paper studies zero-shot anomaly classification (AC) and segmentation (AS) in industrial vision. We reveal that the abundant normal and abnormal cues implicit in unlabeled test images can be exploited for anomaly determination, which is ignored by prior methods. Our key observation is that for the industrial product images, the normal image patches could find a relatively large number of similar patches in other unlabeled images, while the abnormal ones only have a few similar patches.
 
 We leverage such a discriminative characteristic to design a novel zero-shot AC/AS method by Mutual Scoring (MuSc) of the unlabeled images, which does not need any training or prompts. Specifically, we perform Local Neighborhood Aggregation with Multiple Degrees (**LNAMD**) to obtain the patch features that are capable of representing anomalies in varying sizes. Then we propose the Mutual Scoring Mechanism (**MSM**) to leverage the unlabeled test images to assign the anomaly score to each other. Furthermore, we present an optimization approach named Re-scoring with Constrained Image-level Neighborhood (**RsCIN**) for image-level anomaly classification to suppress the false positives caused by noises in normal images.
 
 The superior performance on the challenging MVTec AD and VisA datasets demonstrates the effectiveness of our approach. Compared with the state-of-the-art zero-shot approaches, MuSc achieves a $\textbf{21.1}$\% PRO absolute gain (from 72.7\% to 93.8\%) on MVTec AD, a $\textbf{19.4}$\% pixel-AP gain and a $\textbf{14.7}$\% pixel-AUROC gain on VisA. In addition, our zero-shot approach outperforms most of the few-shot approaches and is comparable to some one-class methods.
 
-![pipline](./assets/pipeline.png) 
+![pipline](./assets/pipeline.png)
 
 ## 😊Compare with other 0-shot methods
 
-![Compare_0](./assets/compare_zero_shot.png) 
+![Compare_0](./assets/compare_zero_shot.png)
 
 ## 😊Compare with other 4-shot methods
 
-![Compare_4](./assets/compare_few_shot.png) 
+![Compare_4](./assets/compare_few_shot.png)
 
 <span id='setup'/>
 
@@ -188,10 +190,10 @@ data
 |-----|-- candle
 |-----|-----|--- Data
 |-----|-----|-----|----- Images
-|-----|-----|-----|--------|------ Anomaly 
-|-----|-----|-----|--------|------ Normal 
+|-----|-----|-----|--------|------ Anomaly
+|-----|-----|-----|--------|------ Normal
 |-----|-----|-----|----- Masks
-|-----|-----|-----|--------|------ Anomaly 
+|-----|-----|-----|--------|------ Anomaly
 |-----|-----|--- image_anno.csv
 |-----|-- capsules
 |-----|--- ...
@@ -229,6 +231,7 @@ We provide two ways to run our code.
 ```
 python examples/musc_main.py
 ```
+
 Follow the configuration in `./configs/musc.yaml`.
 
 ### script
@@ -236,6 +239,7 @@ Follow the configuration in `./configs/musc.yaml`.
 ```
 sh scripts/musc.sh
 ```
+
 The configuration in the script `musc.sh` takes precedence.
 
 The key arguments of the script are as follows:
@@ -379,7 +383,6 @@ For more details, see `configs/musc.yaml`.
 |   dinov2_vitl14   |   DINO_v2    |    336     |     96.84      |   97.45    | 98.68  |    98.17     |    61.77    |  61.21  |  94.62   |
 |   dinov2_vitl14   |   DINO_v2    |    518     |     97.08      |   97.13    | 98.82  |    98.34     |    66.15    |  67.39  |  96.16   |
 
-
 ### VisA
 
 |                   |              |            | Classification |            |        | Segmentation |             |         |          |
@@ -401,7 +404,6 @@ For more details, see `configs/musc.yaml`.
 |   dinov2_vitb14   |   DINO_v2    |    518     |     90.25      |   87.48    | 90.86  |    98.66     |    45.56    |  41.23  |  91.80   |
 |   dinov2_vitl14   |   DINO_v2    |    336     |     90.18      |   88.47    | 90.56  |    98.38     |    43.84    |  38.74  |  88.38   |
 |   dinov2_vitl14   |   DINO_v2    |    518     |     91.73      |   89.20    | 92.27  |    98.78     |    47.12    |  42.79  |  92.40   |
-
 
 ### BTAD
 
@@ -464,12 +466,13 @@ Q: How to set the appropriate input image resolution ?
 
 A: The image resolution `img_resize` input into the backbone is generally set to a multiple of the patch size of ViT.
 The commonly used values are 224, 240, 256, 336, 512 and 518.
-In the previous section <a href='#results_backbones'>*(jump)*</a>, we show the two input image resolutions commonly used by different feature extractors for reference.
+In the previous section <a href='#results_backbones'>_(jump)_</a>, we show the two input image resolutions commonly used by different feature extractors for reference.
 The image resolution can be changed by modifying the 'img_resize' parameter in the shell script, or by modifying the `datasets->img_resize` parameter in the `./configs/musc.yaml` configuration file.
 
 <span id='citation'/>
 
 ## Citation: <a href='#all_catelogue'>[Back to Catalogue]</a>
+
 ```
 @inproceedings{Li2024MuSc,
   title={MuSc: Zero-Shot Industrial Anomaly Classification and Segmentation with Mutual Scoring of the Unlabeled Images},
@@ -488,4 +491,5 @@ Our repo is built on [PatchCore](https://github.com/amazon-science/patchcore-ins
 <span id='license'/>
 
 ## License: <a href='#all_catelogue'>[Back to Catalogue]</a>
+
 MuSc is released under the **MIT Licence**, and is fully open for academic research and also allow free commercial usage. To apply for a commercial license, please contact yuzhou@hust.edu.cn.

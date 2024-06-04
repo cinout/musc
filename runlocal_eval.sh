@@ -12,4 +12,5 @@ python examples/musc_main.py \
   --batch_size 4 \
   --output_dir ./output \
   --vis True \
-  --save_excel True
+  --save_excel True \
+  --online \
