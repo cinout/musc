@@ -249,10 +249,6 @@ class MuSc:
                         first_batch_patch_tokens is not None
                     ), "need first batch's features because the current batch has only 1 image"
 
-                    first_batch_patch_tokens = first_batch_patch_tokens.to(
-                        patch_tokens[0].device
-                    )
-
                     patch_tokens = [
                         torch.cat([current_batch, first_batch[0].unsqueeze(0)], dim=0)
                         for current_batch, first_batch in zip(
@@ -261,6 +257,7 @@ class MuSc:
                     ]
 
                 feature_dim = patch_tokens[0].shape[-1]
+                patch_tokens = [p.to(self.device) for p in patch_tokens]
                 anomaly_maps_r = torch.tensor([]).double()
                 for r in self.r_list:
                     # LNAMD
