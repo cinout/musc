@@ -9,7 +9,7 @@ python examples/musc_main.py \
   --img_resize 518 \
   --divide_num 1 \
   --r_list 1 3 5 \
-  --batch_size 4 \
+  --batch_size 3 \
   --output_dir ./output \
   --vis True \
   --save_excel True \

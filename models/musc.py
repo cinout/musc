@@ -515,6 +515,11 @@ class MuSc:
         print("computing metrics...")
         pr_sp = np.array(scores_cls)
         gt_sp = np.array(gt_list)
+
+        # TODO: remoev
+        print(f"pr_sp: {pr_sp}")
+        print(f"gt_sp: {gt_sp}")
+
         gt_px = torch.cat(img_masks, dim=0).numpy().astype(np.int32)
         pr_px = np.array(anomaly_maps)
         image_metric, pixel_metric = compute_metrics(gt_sp, pr_sp, gt_px, pr_px)
