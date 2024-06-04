@@ -186,12 +186,17 @@ class MuSc:
                 pin_memory=True,
             )
 
-            for image_info in tqdm(test_dataloader):
+            for batch_idx, image_info in tqdm(enumerate(test_dataloader)):
                 if isinstance(image_info, dict):
                     image = image_info["image"]
                     image_path_list.extend(image_info["image_path"])
                     img_masks.append(image_info["mask"])
                     gt_list.extend(list(image_info["is_anomaly"].numpy()))
+
+                    if batch_idx == 0:
+                        first_batch_image = image
+                        print(image.shape)
+                        exit()
                 with torch.no_grad(), torch.cuda.amp.autocast():
                     input_image = image.to(torch.float).to(self.device)
                     if "dinov2" in self.model_name:
