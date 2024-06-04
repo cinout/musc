@@ -323,7 +323,13 @@ class MuSc:
                     np.array(anomaly_maps_iter).reshape(B, -1).max(-1)
                 )  # raw pixel-level AC score, shape: [#test, ]
 
+                # TODO: remove this
+                print(f"scores_cls_iter: {scores_cls_iter}")
+
                 scores_cls = np.append(scores_cls, scores_cls_iter, axis=0)
+
+                print(f"scores_cls: {scores_cls}")
+                print("==========")
 
         else:
             # offline mode, which has access to all the images in the dataset
@@ -515,10 +521,6 @@ class MuSc:
         print("computing metrics...")
         pr_sp = np.array(scores_cls)
         gt_sp = np.array(gt_list)
-
-        # TODO: remoev
-        print(f"pr_sp: {pr_sp}")
-        print(f"gt_sp: {gt_sp}")
 
         gt_px = torch.cat(img_masks, dim=0).numpy().astype(np.int32)
         pr_px = np.array(anomaly_maps)
