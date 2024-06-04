@@ -9,9 +9,9 @@
 #SBATCH --qos=gpgpudeeplearn
 #SBATCH --constraint=dlg4|dlg5
 
-#SBATCH --job-name="e_mvtec"
+#SBATCH --job-name="e_visa"
 #SBATCH --account=punim1623
-#SBATCH --time=0-02:00:00
+#SBATCH --time=0-03:00:00
 
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
@@ -33,11 +33,12 @@ module purge
 eval "$(conda shell.bash hook)"
 conda activate anogpt
 
+# FIXME: update output_dir
 
 python examples/musc_main.py \
   --device 0 \
-  --data_path ./data/mvtec_anomaly_detection/ \
-  --dataset_name mvtec_ad \
+  --data_path ./data/visa/ \
+  --dataset_name visa \
   --class_name ALL \
   --backbone_name ViT-L-14-336 \
   --pretrained openai \
@@ -45,8 +46,8 @@ python examples/musc_main.py \
   --img_resize 518 \
   --divide_num 1 \
   --r_list 1 3 5 \
-  --batch_size 4 \
-  --output_dir ./output \
+  --batch_size 3 \
+  --output_dir ./output_online_bs3 \
   --vis True \
   --save_excel True \
   --online \

@@ -171,7 +171,6 @@ class MuSc:
 
         if self.online:
             # online mode
-            # TODO: what if the last batch has size 1
 
             scores_cls = np.array([])
 
@@ -186,17 +185,16 @@ class MuSc:
                 pin_memory=True,
             )
 
-            for batch_idx, image_info in tqdm(enumerate(test_dataloader)):
+            first_batch_patch_tokens = None
+            first_batch_image_features = None
+
+            for batch_idx, image_info in enumerate(test_dataloader):
                 if isinstance(image_info, dict):
-                    image = image_info["image"]
+                    image = image_info["image"]  # [bs,3]
                     image_path_list.extend(image_info["image_path"])
                     img_masks.append(image_info["mask"])
                     gt_list.extend(list(image_info["is_anomaly"].numpy()))
 
-                    if batch_idx == 0:
-                        first_batch_image = image
-                        print(image.shape)
-                        exit()
                 with torch.no_grad(), torch.cuda.amp.autocast():
                     input_image = image.to(torch.float).to(self.device)
                     if "dinov2" in self.model_name:
@@ -240,6 +238,24 @@ class MuSc:
                     for bi in range(image_features.shape[0])
                 ]  # 4*[768]
 
+                if batch_idx == 0:
+                    # TODO: if use RsCIN, then we need to record image-level token too
+                    first_batch_patch_tokens = patch_tokens  # 4*[bs, L+1, C=1024]
+                    first_batch_image_features = image_features  # 4*[768]
+
+                if image.shape[0] == 1:
+                    # last batch, with just one image
+                    assert (
+                        first_batch_patch_tokens is not None
+                    ), "need first batch's features because the current batch has only 1 image"
+
+                    patch_tokens = [
+                        torch.cat([current_batch, first_batch[0].unsqueeze(0)], dim=0)
+                        for current_batch, first_batch in zip(
+                            patch_tokens, first_batch_patch_tokens
+                        )
+                    ]
+
                 feature_dim = patch_tokens[0].shape[-1]
                 anomaly_maps_r = torch.tensor([]).double()
                 for r in self.r_list:
@@ -281,6 +297,10 @@ class MuSc:
                 anomaly_maps_iter = torch.mean(anomaly_maps_r, 0).to(self.device)
                 del anomaly_maps_r
                 torch.cuda.empty_cache()
+
+                if image.shape[0] == 1:
+                    # last batch, with just one image
+                    anomaly_maps_iter = anomaly_maps_iter[0].unsqueeze(0)
 
                 # interpolate
                 B, L = anomaly_maps_iter.shape
