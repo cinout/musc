@@ -2,13 +2,9 @@ import numpy as np
 import torch
 
 
-empty_list = np.array([])
-print(empty_list)
-
-new_list = np.array([33.1, -22.3])
-empty_list = np.append(empty_list, new_list, axis=0)
-print(empty_list)
-# N = 5
+N = 5
+similarity_matrix = torch.randn(size=(N, N))
+print(similarity_matrix.device)
 
 
 # def MMO(W, score, k_list=[1, 2, 3]):
