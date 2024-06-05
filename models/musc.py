@@ -271,26 +271,34 @@ class MuSc:
                     with torch.no_grad(), torch.cuda.amp.autocast():
                         features = LNAMD_r._embed(patch_tokens)
                         features /= features.norm(dim=-1, keepdim=True)
+
                         for l in range(len(self.features_list)):
                             # save the aggregated features
                             if str(l) not in Z_layers.keys():
                                 Z_layers[str(l)] = []
                             Z_layers[str(l)].append(features[:, :, l, :])
 
-                    # MSM
+                    # MSM: compare features
                     anomaly_maps_l = torch.tensor([]).double()
 
                     for l in Z_layers.keys():
                         # different layers
                         Z = torch.cat(Z_layers[l], dim=0).to(self.device)  # (N, L, C)
+
                         anomaly_maps_msm = MSM(
-                            Z=Z, device=self.device, topmin_min=0, topmin_max=0.3
+                            Z=Z,
+                            device=self.device,
+                            topmin_min=0,
+                            topmin_max=0.3,
+                            online=self.online,
                         )
+
                         anomaly_maps_l = torch.cat(
                             (anomaly_maps_l, anomaly_maps_msm.unsqueeze(0).cpu()), dim=0
                         )
                         torch.cuda.empty_cache()
                     anomaly_maps_l = torch.mean(anomaly_maps_l, 0)
+
                     anomaly_maps_r = torch.cat(
                         (anomaly_maps_r, anomaly_maps_l.unsqueeze(0)), dim=0
                     )
@@ -323,13 +331,7 @@ class MuSc:
                     np.array(anomaly_maps_iter).reshape(B, -1).max(-1)
                 )  # raw pixel-level AC score, shape: [#test, ]
 
-                # TODO: remove this
-                print(f"scores_cls_iter: {scores_cls_iter}")
-
                 scores_cls = np.append(scores_cls, scores_cls_iter, axis=0)
-
-                print(f"scores_cls: {scores_cls}")
-                print("==========")
 
         else:
             # offline mode, which has access to all the images in the dataset
