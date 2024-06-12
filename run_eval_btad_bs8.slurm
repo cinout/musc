@@ -46,7 +46,7 @@ python examples/musc_main.py \
   --img_resize 518 \
   --divide_num 1 \
   --r_list 1 3 5 \
-  --batch_size 3 \
+  --batch_size 8 \
   --output_dir ./output_online_bs8 \
   --vis True \
   --save_excel True \
